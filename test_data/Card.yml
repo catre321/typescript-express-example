@@ -1,0 +1,32 @@
+Card:
+  - code: '111111'
+    status: 'available'
+    createdBy: 'admin'
+
+  - code: '222222'
+    status: 'available'
+    createdBy: 'admin'
+
+  - code: '333333'
+    status: 'available'
+    createdBy: 'admin'
+
+  - code: '444444'
+    status: 'available'
+    createdBy: 'admin'
+
+  - code: '555555'
+    status: 'available'
+    createdBy: 'admin'
+
+  - code: '666666'
+    status: 'available'
+    createdBy: 'admin'
+
+  - code: '777777'
+    status: 'available'
+    createdBy: 'admin'
+    
+  - code: '888888'
+    status: 'missing'
+    createdBy: 'admin'

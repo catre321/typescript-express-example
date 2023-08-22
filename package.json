@@ -1,0 +1,51 @@
+{
+  "name": "typeorm-typescript-express-example",
+  "version": "0.0.1",
+  "description": "Example how to use Express and TypeORM with TypeScript.",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "author": {
+    "name": "Umed Khudoiberdiev",
+    "email": "pleerock.me@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/typeorm/typescript-express-example.git"
+  },
+  "bugs": {
+    "url": "https://github.com/typeorm/typescript-express-example/issues"
+  },
+  "tags": [
+    "orm",
+    "typescript",
+    "typescript-orm",
+    "typeorm-sample",
+    "typeorm-example",
+    "typeorm-express-example"
+  ],
+  "devDependencies": {
+    "@types/body-parser": "^1.19.2",
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.15.11",
+    "luxon": "^3.3.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@types/luxon": "^3.3.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "csv-parser": "^3.0.0",
+    "express": "^4.18.2",
+    "mqtt": "^5.0.2",
+    "pg": "^8.11.0",
+    "typeorm": "^0.3.14",
+    "yaml": "^2.3.1"
+  },
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "migration:generate": "./node_modules/.bin/typeorm-ts-node-esm migration:generate -d src/DataSource.ts",
+    "migration:up": "./node_modules/.bin/typeorm-ts-node-esm migration:run -d src/DataSource.ts",
+    "migration:down": "./node_modules/.bin/typeorm-ts-node-esm migration:revert -d src/DataSource.ts"
+  }
+}

@@ -1,0 +1,13 @@
+Gate:
+  - name: 'Gate 1'
+    status: 'opened'
+    createdBy: 'admin'
+  - name: 'Gate 2'
+    status: 'opened'
+    createdBy: 'admin'
+  - name: 'Gate 3'
+    status: 'opened'
+    createdBy: 'admin'
+  - name: 'Gate 4'
+    status: 'closed'
+    createdBy: 'admin'

@@ -1,0 +1,26 @@
+Reader:
+  - gateType: exit
+    serialNumber: a1
+    status: online
+    createdBy: 'admin'
+    gateName: 'Gate 1'
+  - gateType: play
+    serialNumber: a2
+    status: online
+    createdBy: 'admin'
+    gateName: 'Gate 2'
+  - gateType: play
+    serialNumber: a3
+    status: online
+    createdBy: 'admin'
+    gateName: 'Gate 3'
+  - gateType: play
+    serialNumber: a4
+    status: online
+    createdBy: 'admin'
+    gateName: 'Gate 2'
+  - gateType: exit
+    serialNumber: a5
+    status: offline
+    createdBy: 'admin'
+    gateName: 'Gate 4'
