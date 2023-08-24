@@ -46,6 +46,19 @@ export const AppRoutes = [
         method: "get",
         action: GetData.getCardList
     },
+    // {
+    //     path: "/getCustomerList"
+    // },
+    {
+        path: "/getGateList",
+        method: "get",
+        action: GetData.getGateList
+    },
+    {
+        path: "/getTicketTypeList",
+        method: "get",
+        action: GetData.getTicketTypeList
+    },
     {
         path: "/updateCard",
         method: "put",

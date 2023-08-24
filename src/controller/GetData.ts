@@ -21,3 +21,26 @@ export async function getCardList(request: Request, response: Response) {
     response.status(500).json({ error: "Internal Server Error" });
   }
 }
+export async function getCustomerList(request: Request, response: Response) {}
+export async function getGateList(request: Request, response: Response) {
+  try {
+    const gateRepository: Repository<Gate> = AppDataSource.getRepository(Gate);
+    const gateList: Gate[] = await gateRepository.find();
+
+    response.json(gateList);
+  } catch (error) {
+    console.error("Error getting gate list: ", error);
+    response.status(500).json({ error: "Internal Server Error" });
+  }
+}
+export async function getTicketTypeList(request: Request, response: Response) {
+  try {
+    const TicketTypeRepository: Repository<TicketType> = AppDataSource.getRepository(TicketType);
+    const ticketTypeList: TicketType[] = await TicketTypeRepository.find();
+
+    response.json(ticketTypeList);
+  } catch (error) {
+    console.error("Error getting ticket type list: ", error);
+    response.status(500).json({ error: "Internal Server Error" });
+  }
+}

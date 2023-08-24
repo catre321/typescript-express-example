@@ -103,10 +103,12 @@ export async function addTicketType(request: Request, response: Response) {
     const dataName: string = request.body.ticketTypeName;
     const dataStatus: string = request.body.ticketTypeStatus;
     const dataDurationString: string = request.body.duration;
+
     const dataCreatedBy: string = request.body.createdBy;
 
     try {
-        if (!Duration.isDuration(dataDurationString)) {
+        if (!Duration.isDuration(Duration.fromISO(dataDurationString))) {
+            console.log("duration: ", dataDurationString);
             throw new Error("Duration is not a valid ISO duration");
         }
 
@@ -174,17 +176,26 @@ export async function addReader(request: Request, response: Response) {
 
 }
 
+export type AddTicketTypeRequest = {
+    ticketTypeName: string;
+    gateName: string;
+    maxEntry: string;
+    status: string;
+    createdBy: string;
+}
 export async function addTicketTypeGate(request: Request, response: Response) {
     console.log("addTicketTypeGates being executed!");
-    const dataTicketTypeName: string = request.body.ticketTypeName;
-    const dataGateName: string = request.body.gateName;
-    const dataMaxEntry: string = request.body.maxEntry;
-    const dataCreatedBy: string = request.body.createdBy;
+    const body = request.body as AddTicketTypeRequest;
+    
+    const dataTicketTypeName = body.ticketTypeName;
+    const dataGateName = body.gateName;
+    const dataMaxEntry = body.maxEntry;
+    const dataStatus = body.status;
+    const dataCreatedBy = body.createdBy;
 
     try {
         const ticketType: TicketType = await AppDataSource.getRepository(TicketType).findOneBy({ 
-            name: dataTicketTypeName,
-            status: 'available' 
+            name: dataTicketTypeName
         });
         const gate: Gate = await AppDataSource.getRepository(Gate).findOneBy({ name: dataGateName });
         if(ticketType === null){
@@ -216,7 +227,7 @@ export async function addTicketTypeGate(request: Request, response: Response) {
             response.send("Complete");
         }
     } catch (error) {
-        console.error(`Error inserting TicketTypeGate with ticketType "${dataTicketTypeName}, gate name "${dataGateName}": `, error);
+        console.error(`Error inserting TicketTypeGate with ticketType "${dataTicketTypeName}", gate name "${dataGateName}": `, error);
         response.send(`Error: ${error.message}`);
     }
 
