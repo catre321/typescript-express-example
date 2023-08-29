@@ -38,7 +38,7 @@ export async function updateCard(request: Request, response: Response) {
       console.log(`Card with code "${dataCardCode}" DO NOT exists`);
       response.send(`Card with code "${dataCardCode}" DO NOT exists`);
     } else {
-      // const existingCard: Card = new Card();
+      
       existingCard.code = dataCardCode;
       existingCard.status = dataStatus;
       existingCard.note = dataNote;
