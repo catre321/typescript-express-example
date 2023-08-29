@@ -56,7 +56,6 @@ async function checkCardStatus(dataCard: Card, dataStatus: string): Promise<bool
     console.log("\x1b[32m", 'checkCardStatus being executed!');
     try {
         
-
         if (dataCard.status !== dataStatus) {
             console.log(`0 card with code "${dataCard.code}" and status "${dataStatus}". `);
             return false;
@@ -240,12 +239,12 @@ export function mqttJob(): void {
         console.log("topic is " + topicSub);
 
         /*
-            "card_code": "111111",
-            "serial_number": "a1" 
+            "cardCode": "111111",
+            "serialNumber": "a1" 
         */
         const jsonMsg = JSON.parse(message.toString());
-        const dataCardCode: string = jsonMsg["card_code"];
-        const dataSerialNumber: string = jsonMsg["serial_number"];
+        const dataCardCode: string = jsonMsg["cardCode"];
+        const dataSerialNumber: string = jsonMsg["serialNumber"];
 
 
         try {
@@ -273,6 +272,7 @@ export function mqttJob(): void {
             if (await checkGateType(dataReader, 'exit')) {
                 await customerExit(dataCard, dataReader, dataCustomerCardTicketType);
                 mqttPub('Valid');
+                return;
             }
             if (!await checkValidGate(dataCustomerCardTicketType, dataReader)) {
                 throw new Error('Do not let through! (invalid gate)');

@@ -27,5 +27,6 @@ export const AppDataSource = new DataSource({
          TicketTypeGate, CustomerCardTicketTypeLog],
     migrations: ['src/migration/**/*{.ts,.js}'],
     subscribers: [],
+
 })
  

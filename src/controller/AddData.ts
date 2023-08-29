@@ -10,11 +10,18 @@ import { Reader } from "../entity/Reader";
 import { TicketTypeGate } from '../entity/TicketTypeGate';
 import { CustomerCardTicketType } from "../entity/CustomerCardsTicketType";
 
+export type AddCardRequest = {
+    cardCode: string,
+    cardStatus: string,
+    createdBy: string
+}
 export async function addCard(request: Request, response: Response) {
     console.log("addCard being executed!");
-    const dataCardCode: string = request.body.cardCode;
-    const dataStatus: string = request.body.cardStatus;
-    const dataCreatedBy: string = request.body.createdBy;
+    const body = request.body as AddCardRequest;
+
+    const dataCardCode: string = body.cardCode;
+    const dataStatus: string = body.cardStatus;
+    const dataCreatedBy: string = body.createdBy;
 
     try {
         const cardRepository: Repository<Card> = AppDataSource.getRepository(Card);
@@ -39,11 +46,18 @@ export async function addCard(request: Request, response: Response) {
     }
 }
 
+export type AddCustomerRequest = {
+    customerName: string,
+    customerStatus: string,
+    createdBy: string
+}
 export async function addCustomer(request: Request, response: Response) {
     console.log("addCustomer being executed!");
-    const dataName: string = request.body.customerName;
-    const dataStatus: string = request.body.customerStatus;
-    const dataCreatedBy: string = request.body.createdBy;
+    const body = request.body as AddCustomerRequest;
+
+    const dataName: string = body.customerName;
+    const dataStatus: string = body.customerStatus;
+    const dataCreatedBy: string = body.createdBy;
 
     try {
         const customerRepository: Repository<Customer> = AppDataSource.getRepository(Customer);
@@ -69,11 +83,18 @@ export async function addCustomer(request: Request, response: Response) {
 
 }
 
+export type AddGateRequest = {
+    gateName: string,
+    gateStatus: string,
+    createdBy: string
+}
 export async function addGate(request: Request, response: Response) {
     console.log("addGate being executed!");
-    const dataName: string = request.body.gateName;
-    const dataStatus: string = request.body.gateStatus;
-    const dataCreatedBy: string = request.body.createdBy;
+    const body = request.body as AddGateRequest;
+
+    const dataName: string = body.gateName;
+    const dataStatus: string = body.gateStatus;
+    const dataCreatedBy: string = body.createdBy;
 
     try {
         const gateRepository: Repository<Gate> = AppDataSource.getRepository(Gate);
@@ -98,12 +119,18 @@ export async function addGate(request: Request, response: Response) {
     }
 }
 
+
+export type AddTicketTypeRequest= {
+    ticketTypeName: string,
+    ticketTypeStatus: string,
+    ticketTypeDuration: string,
+    createdBy:string
+}
 export async function addTicketType(request: Request, response: Response) {
     console.log("addTicketType being executed!");
     const dataName: string = request.body.ticketTypeName;
     const dataStatus: string = request.body.ticketTypeStatus;
     const dataDurationString: string = request.body.duration;
-
     const dataCreatedBy: string = request.body.createdBy;
 
     try {
@@ -176,7 +203,7 @@ export async function addReader(request: Request, response: Response) {
 
 }
 
-export type AddTicketTypeRequest = {
+export type AddTicketTypeGateRequest = {
     ticketTypeName: string;
     gateName: string;
     maxEntry: string;
@@ -185,7 +212,7 @@ export type AddTicketTypeRequest = {
 }
 export async function addTicketTypeGate(request: Request, response: Response) {
     console.log("addTicketTypeGates being executed!");
-    const body = request.body as AddTicketTypeRequest;
+    const body = request.body as AddTicketTypeGateRequest;
     
     const dataTicketTypeName = body.ticketTypeName;
     const dataGateName = body.gateName;
@@ -221,6 +248,7 @@ export async function addTicketTypeGate(request: Request, response: Response) {
             newTicketTypeGate.ticketType = ticketType;
             newTicketTypeGate.gate = gate;
             newTicketTypeGate.maxEntry = parseInt(dataMaxEntry);
+            newTicketTypeGate.status = dataStatus;
             newTicketTypeGate.createdBy = dataCreatedBy;
             await ticketTypeGateRepository.save(newTicketTypeGate);
             console.log(`Successfully inserted TicketTypeGate with ticketType "${dataTicketTypeName}, gate name "${dataGateName}"`);
@@ -233,12 +261,20 @@ export async function addTicketTypeGate(request: Request, response: Response) {
 
 }
 
+export type AddCustomerCardTicketTypeRequest = {
+    customerName: string;
+    customerCardCode: string;
+    customerTicketTypeName: string;
+    createdBy: string;
+}
 export async function addCustomerCardTicketType(request: Request, response: Response) {
     console.log('addCustomerCardTicketType being executed!');
-    const dataCustomerName: string = request.body.customerName;
-    const dataCustomerCardCode: string = request.body.customerCardCode;
-    const dataCustomerTicketTypeName: string = request.body.customerTicketTypeName;
-    const dataCreatedBy: string = request.body.createdBy;
+    const body = request.body as AddCustomerCardTicketTypeRequest;
+
+    const dataCustomerName: string = body.customerName;
+    const dataCustomerCardCode: string = body.customerCardCode;
+    const dataCustomerTicketTypeName: string = body.customerTicketTypeName;
+    const dataCreatedBy: string = body.createdBy;
 
     try {
         const dataCustomer: Customer = await AppDataSource.getRepository(Customer).findOneBy({ name: dataCustomerName });
