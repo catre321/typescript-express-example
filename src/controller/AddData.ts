@@ -257,7 +257,7 @@ export async function addTicketTypeGate(request: Request, response: Response) {
             const newTicketTypeGate: TicketTypeGate = new TicketTypeGate();
             newTicketTypeGate.ticketType = ticketType;
             newTicketTypeGate.gate = gate;
-            newTicketTypeGate.maxEntry = parseInt(dataMaxEntry);
+            newTicketTypeGate.maxEntry = dataMaxEntry;
             newTicketTypeGate.status = dataStatus;
             newTicketTypeGate.createdBy = dataCreatedBy;
             await ticketTypeGateRepository.save(newTicketTypeGate);

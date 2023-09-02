@@ -12,6 +12,7 @@ import { CustomerCardTicketType } from "../entity/CustomerCardsTicketType";
 
 export async function getCardList(request: Request, response: Response) {
   try {
+    console.log("getCardList being executed");
     const cardRepository: Repository<Card> = AppDataSource.getRepository(Card);
     const cardList: Card[] = await cardRepository.find();
 
@@ -21,6 +22,7 @@ export async function getCardList(request: Request, response: Response) {
     response.status(500).json({ error: "Internal Server Error" });
   }
 }
+
 export async function getCustomerList(request: Request, response: Response) {}
 export async function getGateList(request: Request, response: Response) {
   try {

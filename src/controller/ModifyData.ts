@@ -38,12 +38,11 @@ export async function updateCard(request: Request, response: Response) {
       console.log(`Card with code "${dataCardCode}" DO NOT exists`);
       response.send(`Card with code "${dataCardCode}" DO NOT exists`);
     } else {
-      
       existingCard.code = dataCardCode;
       existingCard.status = dataStatus;
       existingCard.note = dataNote;
       existingCard.updatedBy = dataUpdatedBy;
-      await cardRepository.update(existingCard.id, existingCard);
+      await cardRepository.save(existingCard);
       console.log(`Successfully updated card with code "${dataCardCode}"`);
       response.send(`Successfully updated card with code "${dataCardCode}"`);
     }
