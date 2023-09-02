@@ -10,30 +10,39 @@ import { Reader } from "../entity/Reader";
 import { TicketTypeGate } from "../entity/TicketTypeGate";
 import { CustomerCardTicketType } from "../entity/CustomerCardsTicketType";
 
+export type updateCardRequest = {
+  cardId: number,
+  cardCode: string,
+  cardStatus: string,
+  cardNote: string,
+  updatedBy: string
+}
 export async function updateCard(request: Request, response: Response) {
   try {
     console.log("updateCard being executed!");
-    const dataCardCode: string = request.body.cardCode;
-    const dataStatus: string = request.body.cardStatus;
-    const dataNote: string = request.body.cardNote;
-    const dataUpdatedBy: string = request.body.updatedBy;
+    const body = request.body as updateCardRequest;
+
+    const dataCardId: number = body.cardId;
+    const dataCardCode: string = body.cardCode;
+    const dataStatus: string = body.cardStatus;
+    const dataNote: string = body.cardNote;
+    const dataUpdatedBy: string = body.updatedBy;
 
     const cardRepository: Repository<Card> = AppDataSource.getRepository(Card);
 
     const existingCard: Card = await cardRepository.findOneBy({
-      code: dataCardCode,
+      id: dataCardId
     });
 
     if (!existingCard) {
       console.log(`Card with code "${dataCardCode}" DO NOT exists`);
       response.send(`Card with code "${dataCardCode}" DO NOT exists`);
     } else {
-      // const existingCard: Card = new Card();
       existingCard.code = dataCardCode;
       existingCard.status = dataStatus;
       existingCard.note = dataNote;
       existingCard.updatedBy = dataUpdatedBy;
-      await cardRepository.update(existingCard.id, existingCard);
+      await cardRepository.save(existingCard);
       console.log(`Successfully updated card with code "${dataCardCode}"`);
       response.send(`Successfully updated card with code "${dataCardCode}"`);
     }
